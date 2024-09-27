@@ -20,7 +20,8 @@
 		B65B5A6624F440A100E74E73 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B65B5A6424F440A100E74E73 /* LaunchScreen.storyboard */; };
 		B65B5A7524F4440300E74E73 /* satisfaction.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B65B5A7424F4440300E74E73 /* satisfaction.mp3 */; };
 		B65B5A7A24F4523C00E74E73 /* AudioModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B65B5A7924F4523C00E74E73 /* AudioModel.swift */; };
-		C73AD1CD2CA5D41600BDA60F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73AD1CC2CA5D41600BDA60F /* ViewController.swift */; };
+		C7BC63D62CA6444800D6A691 /* ModuleBViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BC63D52CA6444800D6A691 /* ModuleBViewController.swift */; };
+		C7BC63D82CA659E000D6A691 /* ModuleAViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BC63D72CA659DB00D6A691 /* ModuleAViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,7 +45,8 @@
 		B65B5A6D24F440D500E74E73 /* Lab2Audio-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Lab2Audio-Bridging-Header.h"; sourceTree = "<group>"; };
 		B65B5A7424F4440300E74E73 /* satisfaction.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = satisfaction.mp3; sourceTree = "<group>"; };
 		B65B5A7924F4523C00E74E73 /* AudioModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioModel.swift; sourceTree = "<group>"; };
-		C73AD1CC2CA5D41600BDA60F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		C7BC63D52CA6444800D6A691 /* ModuleBViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleBViewController.swift; sourceTree = "<group>"; };
+		C7BC63D72CA659DB00D6A691 /* ModuleAViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleAViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,7 +106,8 @@
 				B65B5A6D24F440D500E74E73 /* Lab2Audio-Bridging-Header.h */,
 				B65B5A7424F4440300E74E73 /* satisfaction.mp3 */,
 				B65B5A6724F440A100E74E73 /* Info.plist */,
-				C73AD1CC2CA5D41600BDA60F /* ViewController.swift */,
+				C7BC63D72CA659DB00D6A691 /* ModuleAViewController.swift */,
+				C7BC63D52CA6444800D6A691 /* ModuleBViewController.swift */,
 			);
 			path = Lab2Audio;
 			sourceTree = "<group>";
@@ -182,7 +185,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C73AD1CD2CA5D41600BDA60F /* ViewController.swift in Sources */,
+				C7BC63D82CA659E000D6A691 /* ModuleAViewController.swift in Sources */,
+				C7BC63D62CA6444800D6A691 /* ModuleBViewController.swift in Sources */,
 				B60B8A002ACC96B30083315D /* FFTHelper.m in Sources */,
 				B60B89FD2ACC96B30083315D /* MetalGraph.swift in Sources */,
 				B60B89FC2ACC96B30083315D /* AudioFileReader.m in Sources */,
@@ -337,14 +341,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = FD7Y9YJKBW;
+				DEVELOPMENT_TEAM = D9B6BU2J6A;
 				INFOPLIST_FILE = Lab2Audio/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = SMU.Lab2Audio;
+				PRODUCT_BUNDLE_IDENTIFIER = SMU.Lab2Audio1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Lab2Audio/Lab2Audio-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -359,14 +363,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = FD7Y9YJKBW;
+				DEVELOPMENT_TEAM = D9B6BU2J6A;
 				INFOPLIST_FILE = Lab2Audio/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = SMU.Lab2Audio;
+				PRODUCT_BUNDLE_IDENTIFIER = SMU.Lab2Audio1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Lab2Audio/Lab2Audio-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;

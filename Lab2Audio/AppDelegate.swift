@@ -2,6 +2,7 @@
 //  AppDelegate.swift
 //  Lab2Audio
 //
+// Group: Alex Geer, Hamna Tameez, Zareenah Murad
 
 
 import UIKit
