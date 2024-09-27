@@ -2,6 +2,7 @@
 //  AudioModel.swift
 //  Lab2Audio
 //
+// Group: Alex Geer, Hamna Tameez, Zareenah Murad
 
 import Foundation
 import Accelerate

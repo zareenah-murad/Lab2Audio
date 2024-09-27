@@ -9,7 +9,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Table View Controller-->
+        <!--Module Directory-->
         <scene sceneID="WUX-8b-FZq">
             <objects>
                 <tableViewController id="txN-9G-ji3" sceneMemberID="viewController">
@@ -18,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <sections>
-                            <tableViewSection headerTitle="" id="bvr-P6-F1q">
+                            <tableViewSection headerTitle="" footerTitle="" id="bvr-P6-F1q">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="55" id="PK8-mj-DBp">
                                         <rect key="frame" x="0.0" y="50" width="430" height="55"/>
@@ -27,29 +27,30 @@
                                             <rect key="frame" x="0.0" y="0.0" width="430" height="55"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Module A" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wdX-Sa-BqE">
-                                                    <rect key="frame" x="173.33333333333334" y="11" width="83.333333333333343" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Module A" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wdX-Sa-BqE">
+                                                    <rect key="frame" x="173.33333333333334" y="15.666666666666664" width="83.333333333333343" height="24"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="wdX-Sa-BqE" firstAttribute="centerY" secondItem="VpX-AY-4E9" secondAttribute="centerY" id="f1y-m5-mQB"/>
                                                 <constraint firstItem="wdX-Sa-BqE" firstAttribute="centerX" secondItem="VpX-AY-4E9" secondAttribute="centerX" id="kvY-lk-8MO"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="BYZ-38-t0r" kind="show" id="JNR-c1-7ZY"/>
+                                            <segue destination="BYZ-38-t0r" kind="show" id="nAx-K7-2D4"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="55" id="Nrr-mg-QJa">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="55" id="ydc-K0-aqP">
                                         <rect key="frame" x="0.0" y="105" width="430" height="55"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Nrr-mg-QJa" id="6O2-1X-9Th">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ydc-K0-aqP" id="RtL-fe-WhY">
                                             <rect key="frame" x="0.0" y="0.0" width="430" height="55"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Module B" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RsW-qb-s2T">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Module B" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kus-l2-SEc">
                                                     <rect key="frame" x="173.66666666666666" y="15.666666666666664" width="82.999999999999972" height="24"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                     <nil key="textColor"/>
@@ -57,10 +58,13 @@
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="RsW-qb-s2T" firstAttribute="centerX" secondItem="6O2-1X-9Th" secondAttribute="centerX" id="ITg-la-MQ5"/>
-                                                <constraint firstItem="RsW-qb-s2T" firstAttribute="centerY" secondItem="6O2-1X-9Th" secondAttribute="centerY" id="nY6-H9-Wi8"/>
+                                                <constraint firstItem="kus-l2-SEc" firstAttribute="centerY" secondItem="RtL-fe-WhY" secondAttribute="centerY" id="MUN-f9-6LX"/>
+                                                <constraint firstItem="kus-l2-SEc" firstAttribute="centerX" secondItem="RtL-fe-WhY" secondAttribute="centerX" id="c2t-jK-W9P"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="zIt-lw-COU" kind="show" id="dwJ-bp-8yN"/>
+                                        </connections>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -70,27 +74,30 @@
                             <outlet property="delegate" destination="txN-9G-ji3" id="hes-hY-FMa"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="G0a-eM-hb1"/>
+                    <navigationItem key="navigationItem" title="Module Directory" id="G0a-eM-hb1"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rmt-RH-emd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="15.348837209302326" y="101.7167381974249"/>
         </scene>
-        <!--View Controller-->
+        <!--ModuleA View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Lab2Audio" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ModuleAViewController" customModule="Lab2Audio" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="430" height="932"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j2d-ef-Pho">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YB8-JK-DSb">
+                                <rect key="frame" x="20" y="103" width="390" height="641"/>
+                                <color key="backgroundColor" systemColor="opaqueSeparatorColor"/>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to Module A" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j2d-ef-Pho">
                                 <rect key="frame" x="20" y="752" width="390" height="146"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="146" id="QOe-xv-XKQ"/>
                                 </constraints>
-                                <string key="text">The view above is used as a placholder for the metal graph class to display into. It allows you to manipualte position and size of the graph locations.</string>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -100,17 +107,66 @@
                         <constraints>
                             <constraint firstItem="j2d-ef-Pho" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="MkP-5u-uBM"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="j2d-ef-Pho" secondAttribute="trailing" constant="20" id="PXS-1i-IIV"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="j2d-ef-Pho" secondAttribute="trailing" constant="20" id="ShG-bd-xmg"/>
+                            <constraint firstItem="YB8-JK-DSb" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="XCz-tP-1dG"/>
+                            <constraint firstItem="YB8-JK-DSb" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="Z3F-Pa-guW"/>
                             <constraint firstItem="j2d-ef-Pho" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="a2Z-jM-B3a"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="YB8-JK-DSb" secondAttribute="trailing" constant="20" id="a5m-Kv-PKF"/>
+                            <constraint firstItem="j2d-ef-Pho" firstAttribute="top" secondItem="YB8-JK-DSb" secondAttribute="bottom" constant="8" symbolic="YES" id="jK7-n5-BM5"/>
+                            <constraint firstItem="j2d-ef-Pho" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="xJh-bG-ghp"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Lqx-Hx-8uM"/>
                     <connections>
-                        <outlet property="userView" destination="8bC-Xf-vdC" id="nqC-2G-dfr"/>
+                        <outlet property="userView" destination="YB8-JK-DSb" id="jNT-uO-aS3"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1021" y="-245"/>
+            <point key="canvasLocation" x="1125" y="15"/>
+        </scene>
+        <!--ModuleB View Controller-->
+        <scene sceneID="WlS-3O-gbB">
+            <objects>
+                <viewController id="zIt-lw-COU" customClass="ModuleBViewController" customModule="Lab2Audio" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="xHh-0V-fDV">
+                        <rect key="frame" x="0.0" y="0.0" width="430" height="932"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vt3-Oq-ld0">
+                                <rect key="frame" x="20" y="103" width="390" height="637"/>
+                                <color key="backgroundColor" systemColor="opaqueSeparatorColor"/>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to Module B" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AX3-g8-VOl">
+                                <rect key="frame" x="20" y="748" width="390" height="146"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="146" id="adV-v4-n0a"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="Twv-8s-cRI"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="Twv-8s-cRI" firstAttribute="trailing" secondItem="vt3-Oq-ld0" secondAttribute="trailing" constant="20" id="2Kf-TV-x8m"/>
+                            <constraint firstItem="AX3-g8-VOl" firstAttribute="leading" secondItem="Twv-8s-cRI" secondAttribute="leading" constant="20" id="KCT-p4-dMD"/>
+                            <constraint firstItem="Twv-8s-cRI" firstAttribute="bottom" secondItem="AX3-g8-VOl" secondAttribute="bottom" constant="4" id="Qjz-bF-jO4"/>
+                            <constraint firstItem="vt3-Oq-ld0" firstAttribute="top" secondItem="Twv-8s-cRI" secondAttribute="top" id="aeq-00-45T"/>
+                            <constraint firstItem="Twv-8s-cRI" firstAttribute="trailing" secondItem="AX3-g8-VOl" secondAttribute="trailing" constant="20" id="bjB-AA-8gk"/>
+                            <constraint firstItem="AX3-g8-VOl" firstAttribute="top" secondItem="vt3-Oq-ld0" secondAttribute="bottom" constant="8" symbolic="YES" id="mYT-Nz-j6W"/>
+                            <constraint firstItem="vt3-Oq-ld0" firstAttribute="leading" secondItem="Twv-8s-cRI" secondAttribute="leading" constant="20" id="tfM-qb-0We"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="byL-v8-sRO"/>
+                    <connections>
+                        <outlet property="userView" destination="vt3-Oq-ld0" id="8DA-w7-dlh"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nUh-hA-Gdf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="648.83720930232562" y="953.43347639484989"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="deq-od-fIZ">
@@ -132,6 +188,9 @@
         </scene>
     </scenes>
     <resources>
+        <systemColor name="opaqueSeparatorColor">
+            <color red="0.77647058820000003" green="0.77647058820000003" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
