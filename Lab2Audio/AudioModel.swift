@@ -20,9 +20,9 @@ class AudioModel {
     lazy var samplingRate:Int = {
         return Int(self.audioManager!.samplingRate)
     }()
-  
+
     // MARK: Public Methods
-    init(buffer_size: Int) {
+    init(buffer_size:Int) {
         BUFFER_SIZE = buffer_size
         // Anything not lazily instantiated should be allocated here
         timeData = Array(repeating: 0.0, count: BUFFER_SIZE)
@@ -32,10 +32,6 @@ class AudioModel {
 
     // Public function for starting processing of microphone data
     func startMicrophoneProcessing(withFps: Double) {
-            // Repeat this fps times per second using the timer class
-            // Every time this is called, we update the arrays "timeData" and "fftData"
-        timeData = Array(repeating: 0.0, count: BUFFER_SIZE)
-        fftData = Array(repeating: 0.0, count: BUFFER_SIZE / 2)
         do {
             let audioSession = AVAudioSession.sharedInstance()
             try audioSession.setCategory(.record, mode: .measurement, options: .defaultToSpeaker)
@@ -48,6 +44,8 @@ class AudioModel {
         if let manager = self.audioManager {
             manager.inputBlock = self.handleMicrophone
           
+            // Repeat this fps times per second using the timer class
+            // Every time this is called, we update the arrays "timeData" and "fftData"
             Timer.scheduledTimer(withTimeInterval: 1.0 / withFps, repeats: true) { _ in
                 self.runEveryInterval()
             }

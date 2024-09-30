@@ -33,6 +33,13 @@ class ModuleBViewController: UIViewController {
     lazy var graph: MetalGraph? = {
         return MetalGraph(userView: self.userView)
     }()
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        // Stop the sine sound when the view is about to disappear
+        audio.pause()
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
