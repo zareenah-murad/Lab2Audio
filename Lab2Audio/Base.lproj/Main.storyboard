@@ -141,17 +141,82 @@
                         <viewLayoutGuide key="safeArea" id="Twv-8s-cRI"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="Twv-8s-cRI" firstAttribute="trailing" secondItem="vt3-Oq-ld0" secondAttribute="trailing" constant="20" id="2Kf-TV-x8m"/>
-                            <constraint firstItem="AX3-g8-VOl" firstAttribute="leading" secondItem="Twv-8s-cRI" secondAttribute="leading" constant="20" id="KCT-p4-dMD"/>
-                            <constraint firstItem="Twv-8s-cRI" firstAttribute="bottom" secondItem="AX3-g8-VOl" secondAttribute="bottom" constant="4" id="Qjz-bF-jO4"/>
-                            <constraint firstItem="vt3-Oq-ld0" firstAttribute="top" secondItem="Twv-8s-cRI" secondAttribute="top" id="aeq-00-45T"/>
-                            <constraint firstItem="Twv-8s-cRI" firstAttribute="trailing" secondItem="AX3-g8-VOl" secondAttribute="trailing" constant="20" id="bjB-AA-8gk"/>
-                            <constraint firstItem="AX3-g8-VOl" firstAttribute="top" secondItem="vt3-Oq-ld0" secondAttribute="bottom" constant="8" symbolic="YES" id="mYT-Nz-j6W"/>
-                            <constraint firstItem="vt3-Oq-ld0" firstAttribute="leading" secondItem="Twv-8s-cRI" secondAttribute="leading" constant="20" id="tfM-qb-0We"/>
+                            <constraint firstItem="j2d-ef-Pho" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="MkP-5u-uBM"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="j2d-ef-Pho" secondAttribute="trailing" constant="20" id="PXS-1i-IIV"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="j2d-ef-Pho" secondAttribute="trailing" constant="20" id="ShG-bd-xmg"/>
+                            <constraint firstItem="YB8-JK-DSb" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="XCz-tP-1dG"/>
+                            <constraint firstItem="YB8-JK-DSb" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="Z3F-Pa-guW"/>
+                            <constraint firstItem="j2d-ef-Pho" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="a2Z-jM-B3a"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="YB8-JK-DSb" secondAttribute="trailing" constant="20" id="a5m-Kv-PKF"/>
+                            <constraint firstItem="j2d-ef-Pho" firstAttribute="top" secondItem="YB8-JK-DSb" secondAttribute="bottom" constant="8" symbolic="YES" id="jK7-n5-BM5"/>
+                            <constraint firstItem="j2d-ef-Pho" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="xJh-bG-ghp"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="byL-v8-sRO"/>
                     <connections>
+                        <outlet property="userView" destination="YB8-JK-DSb" id="jNT-uO-aS3"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nUh-hA-Gdf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1125" y="15"/>
+        </scene>
+        <!--ModuleB View Controller-->
+        <scene sceneID="WlS-3O-gbB">
+            <objects>
+                <viewController id="zIt-lw-COU" customClass="ModuleBViewController" customModule="Lab2Audio" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="xHh-0V-fDV">
+                        <rect key="frame" x="0.0" y="0.0" width="430" height="932"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vt3-Oq-ld0">
+                                <rect key="frame" x="20" y="103" width="390" height="486"/>
+                                <color key="backgroundColor" systemColor="opaqueSeparatorColor"/>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to Module B" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AX3-g8-VOl">
+                                <rect key="frame" x="20" y="864" width="390" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1000" minValue="80" maxValue="20000" translatesAutoresizingMaskIntoConstraints="NO" id="zZp-ro-n3Y">
+                                <rect key="frame" x="26" y="688" width="378" height="31"/>
+                                <connections>
+                                    <action selector="changeFrequency:" destination="zIt-lw-COU" eventType="valueChanged" id="1Le-kT-e0K"/>
+                                </connections>
+                            </slider>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Frequency: 1000" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sJI-V2-6K7">
+                                <rect key="frame" x="28" y="659" width="375" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="Twv-8s-cRI"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="vt3-Oq-ld0" firstAttribute="leading" secondItem="Twv-8s-cRI" secondAttribute="leading" constant="20" id="5Fd-fc-RRh"/>
+                            <constraint firstItem="zZp-ro-n3Y" firstAttribute="top" secondItem="sJI-V2-6K7" secondAttribute="bottom" constant="8" id="AAX-nZ-ThP"/>
+                            <constraint firstItem="sJI-V2-6K7" firstAttribute="leading" secondItem="Twv-8s-cRI" secondAttribute="leading" constant="28" id="B4N-Hd-vY6"/>
+                            <constraint firstItem="AX3-g8-VOl" firstAttribute="top" secondItem="zZp-ro-n3Y" secondAttribute="bottom" constant="146" id="Crq-YQ-oPX"/>
+                            <constraint firstItem="Twv-8s-cRI" firstAttribute="trailing" secondItem="sJI-V2-6K7" secondAttribute="trailing" constant="27" id="DRZ-dD-p45"/>
+                            <constraint firstItem="sJI-V2-6K7" firstAttribute="top" secondItem="vt3-Oq-ld0" secondAttribute="bottom" constant="70" id="FDz-8O-7gA"/>
+                            <constraint firstItem="Twv-8s-cRI" firstAttribute="bottom" secondItem="AX3-g8-VOl" secondAttribute="bottom" constant="4" id="GrZ-sL-1pK"/>
+                            <constraint firstItem="vt3-Oq-ld0" firstAttribute="top" secondItem="Twv-8s-cRI" secondAttribute="top" id="JKG-iK-rBg"/>
+                            <constraint firstItem="Twv-8s-cRI" firstAttribute="trailing" secondItem="zZp-ro-n3Y" secondAttribute="trailing" constant="28" id="LYS-YZ-Gpr"/>
+                            <constraint firstItem="zZp-ro-n3Y" firstAttribute="leading" secondItem="Twv-8s-cRI" secondAttribute="leading" constant="28" id="OA6-m5-P3Z"/>
+                            <constraint firstItem="Twv-8s-cRI" firstAttribute="trailing" secondItem="AX3-g8-VOl" secondAttribute="trailing" constant="20" id="QJT-ml-ph4"/>
+                            <constraint firstItem="AX3-g8-VOl" firstAttribute="top" secondItem="zZp-ro-n3Y" secondAttribute="bottom" constant="146" id="XHB-s7-uwJ"/>
+                            <constraint firstItem="sJI-V2-6K7" firstAttribute="top" secondItem="vt3-Oq-ld0" secondAttribute="bottom" constant="70" id="oaE-R6-Iye"/>
+                            <constraint firstItem="Twv-8s-cRI" firstAttribute="trailing" secondItem="vt3-Oq-ld0" secondAttribute="trailing" constant="20" id="xFT-30-dhA"/>
+                            <constraint firstItem="zZp-ro-n3Y" firstAttribute="top" secondItem="sJI-V2-6K7" secondAttribute="bottom" constant="8" id="xdm-dm-LPY"/>
+                            <constraint firstItem="AX3-g8-VOl" firstAttribute="leading" secondItem="Twv-8s-cRI" secondAttribute="leading" constant="20" id="yFX-B6-3MF"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="byL-v8-sRO"/>
+                    <connections>
+                        <outlet property="freqLabel" destination="sJI-V2-6K7" id="z6Y-Rc-Xwc"/>
+                        <outlet property="frequencySlider" destination="zZp-ro-n3Y" id="rrc-Wd-rgZ"/>
                         <outlet property="userView" destination="vt3-Oq-ld0" id="8DA-w7-dlh"/>
                     </connections>
                 </viewController>
