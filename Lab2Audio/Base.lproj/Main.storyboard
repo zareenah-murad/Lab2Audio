@@ -88,42 +88,33 @@
                         <rect key="frame" x="0.0" y="0.0" width="430" height="932"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YB8-JK-DSb">
-                                <rect key="frame" x="20" y="103" width="390" height="641"/>
-                                <color key="backgroundColor" systemColor="opaqueSeparatorColor"/>
-                            </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to Module A" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j2d-ef-Pho">
-                                <rect key="frame" x="20" y="752" width="390" height="146"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="146" id="QOe-xv-XKQ"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Frequency #1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mnW-wQ-GeU">
+                                <rect key="frame" x="132" y="236" width="167" height="70"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Frequency #2" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oDr-gm-Npc">
+                                <rect key="frame" x="143" y="430" width="144" height="53"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="j2d-ef-Pho" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="MkP-5u-uBM"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="j2d-ef-Pho" secondAttribute="trailing" constant="20" id="PXS-1i-IIV"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="j2d-ef-Pho" secondAttribute="trailing" constant="20" id="ShG-bd-xmg"/>
-                            <constraint firstItem="YB8-JK-DSb" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="XCz-tP-1dG"/>
-                            <constraint firstItem="YB8-JK-DSb" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="Z3F-Pa-guW"/>
-                            <constraint firstItem="j2d-ef-Pho" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="a2Z-jM-B3a"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="YB8-JK-DSb" secondAttribute="trailing" constant="20" id="a5m-Kv-PKF"/>
-                            <constraint firstItem="j2d-ef-Pho" firstAttribute="top" secondItem="YB8-JK-DSb" secondAttribute="bottom" constant="8" symbolic="YES" id="jK7-n5-BM5"/>
-                            <constraint firstItem="j2d-ef-Pho" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="xJh-bG-ghp"/>
-                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Lqx-Hx-8uM"/>
                     <connections>
-                        <outlet property="userView" destination="YB8-JK-DSb" id="jNT-uO-aS3"/>
+                        <outlet property="frequencyLabel1" destination="mnW-wQ-GeU" id="w0O-zL-sKu"/>
+                        <outlet property="frequencyLabel2" destination="oDr-gm-Npc" id="gTb-oD-yDy"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1125" y="15"/>
+            <point key="canvasLocation" x="1124.6511627906978" y="14.806866952789701"/>
         </scene>
         <!--ModuleB View Controller-->
         <scene sceneID="WlS-3O-gbB">
@@ -189,7 +180,7 @@
     </scenes>
     <resources>
         <systemColor name="opaqueSeparatorColor">
-            <color red="0.77647058820000003" green="0.77647058820000003" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.77647058823529413" green="0.77647058823529413" blue="0.78431372549019607" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
