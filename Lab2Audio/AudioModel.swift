@@ -6,6 +6,7 @@
 
 import Foundation
 import Accelerate
+import AVFoundation
 
 class AudioModel {
 
@@ -19,9 +20,9 @@ class AudioModel {
     lazy var samplingRate:Int = {
         return Int(self.audioManager!.samplingRate)
     }()
-
+  
     // MARK: Public Methods
-    init(buffer_size:Int) {
+    init(buffer_size: Int) {
         BUFFER_SIZE = buffer_size
         // Anything not lazily instantiated should be allocated here
         timeData = Array(repeating: 0.0, count: BUFFER_SIZE)
@@ -31,12 +32,22 @@ class AudioModel {
 
     // Public function for starting processing of microphone data
     func startMicrophoneProcessing(withFps: Double) {
-        // Setup the microphone to copy to circular buffer
-        if let manager = self.audioManager {
-            manager.inputBlock = self.handleMicrophone
-
             // Repeat this fps times per second using the timer class
             // Every time this is called, we update the arrays "timeData" and "fftData"
+        timeData = Array(repeating: 0.0, count: BUFFER_SIZE)
+        fftData = Array(repeating: 0.0, count: BUFFER_SIZE / 2)
+        do {
+            let audioSession = AVAudioSession.sharedInstance()
+            try audioSession.setCategory(.record, mode: .measurement, options: .defaultToSpeaker)
+            try audioSession.setActive(true)
+            print("AVAudioSession successfully configured.")
+        } catch {
+            print("Failed to configure AVAudioSession: \(error)")
+        }
+
+        if let manager = self.audioManager {
+            manager.inputBlock = self.handleMicrophone
+          
             Timer.scheduledTimer(withTimeInterval: 1.0 / withFps, repeats: true) { _ in
                 self.runEveryInterval()
             }
@@ -67,7 +78,7 @@ class AudioModel {
         // Return the zoomed-in dB data
         return Array(dBData[start..<end])
     }
-
+  
     // You must call this when you want the audio to start being handled by our model
     func play() {
         if let manager = self.audioManager {
@@ -122,7 +133,7 @@ class AudioModel {
     // MARK: Model Callback Methods
     private func runEveryInterval() {
         if inputBuffer != nil {
-            // Fetch fresh time domain data
+            // Copy time data (audio samples) to Swift array
             self.inputBuffer!.fetchFreshData(&timeData, withNumSamples: Int64(BUFFER_SIZE))
 
             // Perform FFT
@@ -229,4 +240,3 @@ class AudioModel {
         }
     }
 }
-
