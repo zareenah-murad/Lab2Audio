@@ -20,14 +20,24 @@ class AudioModel {
     
     private var previousPeakFrequency: Float? = nil
     private var previousMaxValue: Float = 0.0
+    private let gestureThreshold: Float = 1.0  // Threshold to detect significant movement
+    private let noGestureThresholdTime: TimeInterval = 1.0  // Time after which "No Gesture" is displayed
+    private var lastGestureTime: Date = Date()  // Tracks the last time a gesture was detected
+    private var lastGesture: String = "No Gesture"  // Track the last gesture (toward or away)
     private var smoothedFrequency: Float = 0.0
     private let smoothingFactor: Float = 0.1
-    private let gestureThreshold: Float = 1.0
-    private var lastGestureTime: Date = Date()
     private let gestureBufferTime: TimeInterval = 0.5
 
+    // Closure callback to update the gesture label in the UI
+    var gestureCallback: ((String) -> Void)?
+
     // Public property to store the gesture result
-    var gestureResult: String = "No Gesture"
+    var gestureResult: String = "No Gesture" {
+        didSet {
+            // Call the callback whenever the gesture result is updated
+            gestureCallback?(gestureResult)
+        }
+    }
 
     // MARK: Public Methods
     init(buffer_size: Int) {
@@ -67,7 +77,7 @@ class AudioModel {
             manager.play()
         }
     }
-    
+
     func pause() {
         if let manager = self.audioManager {
             manager.pause()
@@ -103,6 +113,7 @@ class AudioModel {
     //==========================================
     // MARK: Model Callback Methods
     
+
     // MARK: Doppler Shift Detection
     private func runEveryInterval() {
         if inputBuffer != nil {
@@ -115,27 +126,36 @@ class AudioModel {
             vDSP_maxvi(fftData, 1, &maxValue, &maxIndex, vDSP_Length(fftData.count))
 
             let peakFrequency = Float(maxIndex) * (Float(samplingRate) / Float(BUFFER_SIZE))
-            let smoothedPeakFrequency = smoothFrequency(peakFrequency)
 
             if let previousFrequency = previousPeakFrequency {
-                let frequencyShift = smoothedPeakFrequency - previousFrequency
+                let frequencyShift = peakFrequency - previousFrequency
                 let magnitudeThreshold: Float = 0.5
 
+                // Detect if the frequency shift is above the gesture threshold
                 if abs(frequencyShift) > gestureThreshold && abs(maxValue - previousMaxValue) > magnitudeThreshold {
-                    if canDetectGesture() {
-                        if frequencyShift > 0 {
-                            print("Gesture Toward Detected (Doppler Shift: \(frequencyShift) Hz)")
-                        } else {
-                            print("Gesture Away Detected (Doppler Shift: \(frequencyShift) Hz)")
-                        }
-                        lastGestureTime = Date()
+                    if frequencyShift > 0 {
+                        // Gesture Toward detected, update gesture
+                        gestureResult = "Gesture Toward Detected"
+                        lastGesture = "Gesture Toward"
+                    } else {
+                        // Gesture Away detected, update gesture
+                        gestureResult = "Gesture Away Detected"
+                        lastGesture = "Gesture Away"
                     }
-                } else {
-                    print("No Gesture Detected")
+                    lastGestureTime = Date()  // Update the last time a gesture was detected
                 }
             }
 
-            previousPeakFrequency = smoothedPeakFrequency
+            // If no significant shift for a while, revert to "No Gesture"
+            if abs(lastGestureTime.timeIntervalSinceNow) > noGestureThresholdTime {
+                gestureResult = "No Gesture"
+                lastGesture = "No Gesture"
+            } else {
+                // Keep displaying the last gesture until timeout
+                gestureResult = lastGesture
+            }
+
+            previousPeakFrequency = peakFrequency
             previousMaxValue = maxValue
         }
     }
