@@ -150,8 +150,8 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v06-4e-0nd">
-                                <rect key="frame" x="194" y="704" width="42" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rp1-jR-YEo">
+                                <rect key="frame" x="194" y="703" width="42" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -170,11 +170,11 @@
                             <constraint firstItem="vt3-Oq-ld0" firstAttribute="top" secondItem="Twv-8s-cRI" secondAttribute="top" id="JKG-iK-rBg"/>
                             <constraint firstItem="Twv-8s-cRI" firstAttribute="trailing" secondItem="zZp-ro-n3Y" secondAttribute="trailing" constant="28" id="LYS-YZ-Gpr"/>
                             <constraint firstItem="zZp-ro-n3Y" firstAttribute="leading" secondItem="Twv-8s-cRI" secondAttribute="leading" constant="28" id="OA6-m5-P3Z"/>
+                            <constraint firstItem="rp1-jR-YEo" firstAttribute="leading" secondItem="Twv-8s-cRI" secondAttribute="leading" constant="194" id="PR5-Oh-xnd"/>
+                            <constraint firstItem="sJI-V2-6K7" firstAttribute="top" secondItem="rp1-jR-YEo" secondAttribute="bottom" constant="31" id="PWh-Fd-T5B"/>
+                            <constraint firstItem="Twv-8s-cRI" firstAttribute="trailing" secondItem="rp1-jR-YEo" secondAttribute="trailing" constant="194" id="PmO-eq-chv"/>
                             <constraint firstItem="Twv-8s-cRI" firstAttribute="trailing" secondItem="AX3-g8-VOl" secondAttribute="trailing" constant="20" id="QJT-ml-ph4"/>
-                            <constraint firstItem="v06-4e-0nd" firstAttribute="leading" secondItem="Twv-8s-cRI" secondAttribute="leading" constant="194" id="WhD-aJ-HmG"/>
-                            <constraint firstItem="sJI-V2-6K7" firstAttribute="top" secondItem="v06-4e-0nd" secondAttribute="bottom" constant="30" id="ZIo-WA-NnF"/>
-                            <constraint firstItem="v06-4e-0nd" firstAttribute="top" secondItem="vt3-Oq-ld0" secondAttribute="bottom" constant="19" id="glg-29-ExR"/>
-                            <constraint firstItem="Twv-8s-cRI" firstAttribute="trailing" secondItem="v06-4e-0nd" secondAttribute="trailing" constant="194" id="lqh-2k-3I0"/>
+                            <constraint firstItem="rp1-jR-YEo" firstAttribute="top" secondItem="vt3-Oq-ld0" secondAttribute="bottom" constant="18" id="g3t-g8-P4p"/>
                             <constraint firstItem="sJI-V2-6K7" firstAttribute="top" secondItem="vt3-Oq-ld0" secondAttribute="bottom" constant="70" id="oaE-R6-Iye"/>
                             <constraint firstItem="Twv-8s-cRI" firstAttribute="trailing" secondItem="vt3-Oq-ld0" secondAttribute="trailing" constant="20" id="xFT-30-dhA"/>
                             <constraint firstItem="AX3-g8-VOl" firstAttribute="leading" secondItem="Twv-8s-cRI" secondAttribute="leading" constant="20" id="yFX-B6-3MF"/>
@@ -184,7 +184,7 @@
                     <connections>
                         <outlet property="freqLabel" destination="sJI-V2-6K7" id="z6Y-Rc-Xwc"/>
                         <outlet property="frequencySlider" destination="zZp-ro-n3Y" id="rrc-Wd-rgZ"/>
-                        <outlet property="gestureLabel" destination="v06-4e-0nd" id="Fd5-UE-tH9"/>
+                        <outlet property="gestureLabel" destination="rp1-jR-YEo" id="j1y-pv-Zx8"/>
                         <outlet property="userView" destination="vt3-Oq-ld0" id="8DA-w7-dlh"/>
                     </connections>
                 </viewController>
