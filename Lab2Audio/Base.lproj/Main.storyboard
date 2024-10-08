@@ -88,14 +88,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="430" height="932"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="NO" text="Frequency #1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mnW-wQ-GeU">
-                                <rect key="frame" x="132" y="236" width="167" height="70"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Frequency #1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mnW-wQ-GeU">
+                                <rect key="frame" x="145" y="236" width="140" height="28.666666666666686"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="NO" text="Frequency #2" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oDr-gm-Npc">
-                                <rect key="frame" x="143" y="430" width="144" height="53"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Frequency #2" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oDr-gm-Npc">
+                                <rect key="frame" x="143" y="388.66666666666663" width="144" height="28.666666666666686"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -103,6 +103,12 @@
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="mnW-wQ-GeU" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="133" id="cON-PO-md9"/>
+                            <constraint firstItem="mnW-wQ-GeU" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="hmn-P8-dhF"/>
+                            <constraint firstItem="oDr-gm-Npc" firstAttribute="top" secondItem="mnW-wQ-GeU" secondAttribute="bottom" constant="123.99999999999994" id="jLP-Ah-xct"/>
+                            <constraint firstItem="oDr-gm-Npc" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="rWu-je-36K"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Lqx-Hx-8uM"/>
                     <connections>
@@ -123,7 +129,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vt3-Oq-ld0">
-                                <rect key="frame" x="20" y="103" width="390" height="486"/>
+                                <rect key="frame" x="20" y="103" width="390" height="582"/>
                                 <color key="backgroundColor" systemColor="opaqueSeparatorColor"/>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to Module B" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AX3-g8-VOl">
@@ -133,13 +139,13 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1000" minValue="80" maxValue="20000" translatesAutoresizingMaskIntoConstraints="NO" id="zZp-ro-n3Y">
-                                <rect key="frame" x="26" y="688" width="378" height="31"/>
+                                <rect key="frame" x="26" y="784" width="378" height="31"/>
                                 <connections>
                                     <action selector="changeFrequency:" destination="zIt-lw-COU" eventType="valueChanged" id="1Le-kT-e0K"/>
                                 </connections>
                             </slider>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Frequency: 1000" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sJI-V2-6K7">
-                                <rect key="frame" x="28" y="659" width="375" height="21"/>
+                                <rect key="frame" x="28" y="755" width="375" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -195,11 +201,10 @@
     </scenes>
     <resources>
         <systemColor name="opaqueSeparatorColor">
-            <color red="0.77647058823529413" green="0.77647058823529413" blue="0.78431372549019607" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.77647058820000003" green="0.77647058820000003" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
     </resources>
 </document>
-
