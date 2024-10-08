@@ -16,76 +16,85 @@ class ModuleBViewController: UIViewController {
     @IBOutlet weak var frequencySlider: UISlider!
     @IBOutlet weak var userView: UIView!
     @IBOutlet weak var freqLabel: UILabel!
-
+    @IBOutlet weak var gestureLabel: UILabel!
+    
     @IBAction func changeFrequency(_ sender: UISlider) {
         self.audio.sineFrequency = sender.value
         freqLabel.text = String(format: "Frequency: %.2f Hz", sender.value)
     }
 
-    // MARK: 1. Setup some constants we will use
     struct AudioConstants {
-        static let AUDIO_BUFFER_SIZE = 1024 * 4
+        static let AUDIO_BUFFER_SIZE = 1024 * 8
     }
 
-    // MARK: 2. The instantiation of the Audio Model
     let audio = AudioModel(buffer_size: AudioConstants.AUDIO_BUFFER_SIZE)
 
     lazy var graph: MetalGraph? = {
         return MetalGraph(userView: self.userView)
     }()
-    
+
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        
-        // Stop the sine sound when the view is about to disappear
+        // Stop gesture detection and audio playback when the view disappears
         audio.pause()
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        print("entered Module B")
-
-        // Read from microphone in real time
         audio.startMicrophoneProcessing(withFps: 30)
 
-        // Configure slider to have a range from 17,000 Hz to 20,000 Hz
         frequencySlider.minimumValue = 17000.0
         frequencySlider.maximumValue = 20000.0
-
-        // Set default frequency to 17,000 Hz
         frequencySlider.value = 17000.0
-
-        // Update frequency and label
         self.audio.sineFrequency = frequencySlider.value
         freqLabel.text = String(format: "Frequency: %.2f Hz", frequencySlider.value)
 
         if let graph = self.graph {
             graph.setBackgroundColor(r: 0, g: 0, b: 0, a: 1)
-
-            // Add graph for zoomed-in FFT data
-            graph.addGraph(withName: "zoomedFFT", shouldNormalizeForFFT: true, numPointsInGraph: 20)
-
-            graph.makeGrids() // Add grids to graph
+            graph.addGraph(withName: "zoomedFFT", shouldNormalizeForFFT: true, numPointsInGraph: 400)
+            graph.makeGrids()
         }
 
+        // Start sinewave playback when the view appears
         audio.startProcessingSinewaveForPlayback(withFreq: frequencySlider.value)
         audio.play()
 
-        // Run the loop for updating the graph periodically
         Timer.scheduledTimer(withTimeInterval: 0.05, repeats: true) { _ in
             self.updateGraph()
         }
+        
+        // Timer to update gesture detection label
+        Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { _ in
+            self.updateGestureLabel()
+        }
     }
 
-    // Periodically, update the graph with refreshed FFT Data
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        // Resume gesture detection and audio playback when the view appears again
+        audio.play()
+    }
+
+    // Update the graph periodically
     func updateGraph() {
         if let graph = self.graph {
-            // Get zoomed-in dB data from the AudioModel
-            if let zoomedData = self.audio.getZoomedDBData(zoomRange: 10) {
-                // Update the zoomed-in FFT graph with the zoomed dB data
-                graph.updateGraph(data: zoomedData, forKey: "zoomedFFT")
+            let startFreq: Float = 17000.0
+            let endFreq: Float = 20000.0
+
+            let startIdx = max(0, Int(startFreq * Float(AudioConstants.AUDIO_BUFFER_SIZE) / Float(audio.samplingRate)))
+            let endIdx = min(audio.fftData.count - 1, Int(endFreq * Float(AudioConstants.AUDIO_BUFFER_SIZE) / Float(audio.samplingRate)))
+
+            if startIdx < audio.fftData.count && endIdx < audio.fftData.count {
+                let subArray = Array(audio.fftData[startIdx...endIdx])
+                graph.updateGraph(data: subArray, forKey: "zoomedFFT")
             }
         }
+    }
+
+    // Update the gesture label based on the current gesture detection
+    func updateGestureLabel() {
+        // Use the `gestureResult` from AudioModel to display in the gestureLabel
+        gestureLabel.text = audio.gestureResult
     }
 }

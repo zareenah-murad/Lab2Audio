@@ -11,26 +11,31 @@ import AVFoundation
 class AudioModel {
 
     // MARK: Properties
-    private var BUFFER_SIZE:Int
-    // These properties are for interfacing with the API
-    // The user can access these arrays at any time and plot them if they like
-    var timeData:[Float]
-    var fftData:[Float]
-    var dBData:[Float] // Add dBData as a property
-    lazy var samplingRate:Int = {
+    private var BUFFER_SIZE: Int
+    var timeData: [Float]
+    var fftData: [Float] // fftData is in dB
+    lazy var samplingRate: Int = {
         return Int(self.audioManager!.samplingRate)
     }()
+    
+    private var previousPeakFrequency: Float? = nil
+    private var previousMaxValue: Float = 0.0
+    private var smoothedFrequency: Float = 0.0
+    private let smoothingFactor: Float = 0.1
+    private let gestureThreshold: Float = 1.0
+    private var lastGestureTime: Date = Date()
+    private let gestureBufferTime: TimeInterval = 0.5
+
+    // Public property to store the gesture result
+    var gestureResult: String = "No Gesture"
 
     // MARK: Public Methods
-    init(buffer_size:Int) {
+    init(buffer_size: Int) {
         BUFFER_SIZE = buffer_size
-        // Anything not lazily instantiated should be allocated here
         timeData = Array(repeating: 0.0, count: BUFFER_SIZE)
-        fftData = Array(repeating: 0.0, count: BUFFER_SIZE/2)
-        dBData = Array(repeating: 0.0, count: BUFFER_SIZE/2) // Initialize dBData
+        fftData = Array(repeating: 0.0, count: BUFFER_SIZE / 2)
     }
 
-    // Public function for starting processing of microphone data
     func startMicrophoneProcessing(withFps: Double) {
         do {
             let audioSession = AVAudioSession.sharedInstance()
@@ -43,9 +48,7 @@ class AudioModel {
 
         if let manager = self.audioManager {
             manager.inputBlock = self.handleMicrophone
-          
-            // Repeat this fps times per second using the timer class
-            // Every time this is called, we update the arrays "timeData" and "fftData"
+
             Timer.scheduledTimer(withTimeInterval: 1.0 / withFps, repeats: true) { _ in
                 self.runEveryInterval()
             }
@@ -55,35 +58,16 @@ class AudioModel {
     func startProcessingSinewaveForPlayback(withFreq: Float = 330.0) {
         sineFrequency = withFreq
         if let manager = self.audioManager {
-            // Swift sine wave loop creation
             manager.outputBlock = self.handleSpeakerQueryWithSinusoid
         }
     }
 
-    func getPeakIndex() -> Int? {
-        var maxIndex: vDSP_Length = 0
-        var maxValue: Float = 0.0
-        vDSP_maxvi(dBData, 1, &maxValue, &maxIndex, vDSP_Length(dBData.count))
-        return Int(maxIndex)
-    }
-
-    func getZoomedDBData(zoomRange: Int) -> [Float]? {
-        guard let maxIndex = getPeakIndex() else { return nil }
-
-        let start = max(0, maxIndex - zoomRange)
-        let end = min(dBData.count, maxIndex + zoomRange)
-
-        // Return the zoomed-in dB data
-        return Array(dBData[start..<end])
-    }
-  
-    // You must call this when you want the audio to start being handled by our model
     func play() {
         if let manager = self.audioManager {
             manager.play()
         }
     }
-
+    
     func pause() {
         if let manager = self.audioManager {
             manager.pause()
@@ -106,22 +90,11 @@ class AudioModel {
                               andBufferSize: Int64(BUFFER_SIZE))
     }()
 
-    // Define properties for tracking previous peak frequency
-    private var previousPeakFrequency: Float? = nil
-    private var previousMaxValue: Float = 0.0 // Add this for magnitude comparison
-    //private var smoothedFrequency: Float = 0.0
-    //private let smoothingFactor: Float = 0.2 // Adjust as needed
-    private let gestureThreshold: Float = 10.0 // Adjust threshold for detecting gestures
-
-    // Gesture detection timing
-    private var lastGestureTime: Date = Date()
-    private let gestureBufferTime: TimeInterval = 0.5 // Half a second buffer between detections
-
     // Smoothing function
-//    private func smoothFrequency(_ newFrequency: Float) -> Float {
-//        smoothedFrequency = smoothedFrequency * (1.0 - smoothingFactor) + newFrequency * smoothingFactor
-//        return smoothedFrequency
-//    }
+    private func smoothFrequency(_ newFrequency: Float) -> Float {
+        smoothedFrequency = smoothedFrequency * (1.0 - smoothingFactor) + newFrequency * smoothingFactor
+        return smoothedFrequency
+    }
 
     private func canDetectGesture() -> Bool {
         return abs(lastGestureTime.timeIntervalSinceNow) > gestureBufferTime
@@ -129,62 +102,40 @@ class AudioModel {
 
     //==========================================
     // MARK: Model Callback Methods
+    
+    // MARK: Doppler Shift Detection
     private func runEveryInterval() {
         if inputBuffer != nil {
-            // Copy time data (audio samples) to Swift array
             self.inputBuffer!.fetchFreshData(&timeData, withNumSamples: Int64(BUFFER_SIZE))
 
-            // Perform FFT
             fftHelper!.performForwardFFT(withData: &timeData, andCopydBMagnitudeToBuffer: &fftData)
 
-            // Compute magnitudes in dB
-            var zeroDB: Float = 1e-10 // Small value to avoid log(0)
-            var magData = [Float](repeating: 0.0, count: BUFFER_SIZE / 2)
-
-            // Square the magnitudes (vDSP_vsq)
-            vDSP_vsq(fftData, 1, &magData, 1, vDSP_Length(BUFFER_SIZE / 2))
-
-            // Normalize the magnitudes by dividing by the buffer size
-            var normalizationFactor: Float = 1.0 / Float(BUFFER_SIZE)
-            vDSP_vsmul(magData, 1, &normalizationFactor, &magData, 1, vDSP_Length(BUFFER_SIZE / 2))
-
-            // Add small value to avoid log(0)
-            vDSP_vsadd(magData, 1, &zeroDB, &magData, 1, vDSP_Length(BUFFER_SIZE / 2))
-
-            // Convert to dB and store in self.dBData
-            var scale: Float = 10.0
-            vDSP_vdbcon(magData, 1, &scale, &dBData, 1, vDSP_Length(BUFFER_SIZE / 2), 1)
-
-            // Find the peak frequency in dB data
             var maxIndex: vDSP_Length = 0
             var maxValue: Float = 0.0
-            vDSP_maxvi(dBData, 1, &maxValue, &maxIndex, vDSP_Length(dBData.count))
+            vDSP_maxvi(fftData, 1, &maxValue, &maxIndex, vDSP_Length(fftData.count))
 
             let peakFrequency = Float(maxIndex) * (Float(samplingRate) / Float(BUFFER_SIZE))
-            //let smoothedPeakFrequency = smoothFrequency(peakFrequency)
+            let smoothedPeakFrequency = smoothFrequency(peakFrequency)
 
-            // Doppler Shift Detection: Detect gestures based on frequency and magnitude change
             if let previousFrequency = previousPeakFrequency {
-                let frequencyShift = peakFrequency - previousFrequency
-                let magnitudeThreshold: Float = 2.0
+                let frequencyShift = smoothedPeakFrequency - previousFrequency
+                let magnitudeThreshold: Float = 0.5
 
-                // Check both frequency and magnitude
                 if abs(frequencyShift) > gestureThreshold && abs(maxValue - previousMaxValue) > magnitudeThreshold {
                     if canDetectGesture() {
                         if frequencyShift > 0 {
-                            print("Gesture Toward Detected")
+                            print("Gesture Toward Detected (Doppler Shift: \(frequencyShift) Hz)")
                         } else {
-                            print("Gesture Away Detected")
+                            print("Gesture Away Detected (Doppler Shift: \(frequencyShift) Hz)")
                         }
-                        lastGestureTime = Date() // Update last gesture time
+                        lastGestureTime = Date()
                     }
                 } else {
                     print("No Gesture Detected")
                 }
             }
 
-            // Update previous values for the next iteration
-            previousPeakFrequency = peakFrequency
+            previousPeakFrequency = smoothedPeakFrequency
             previousMaxValue = maxValue
         }
     }
