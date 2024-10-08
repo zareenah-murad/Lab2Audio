@@ -17,14 +17,9 @@ class ModuleBViewController: UIViewController {
     @IBOutlet weak var userView: UIView!
     @IBOutlet weak var freqLabel: UILabel!
     @IBOutlet weak var gestureLabel: UILabel!
-    
-    @IBAction func changeFrequency(_ sender: UISlider) {
-        self.audio.sineFrequency = sender.value
-        freqLabel.text = String(format: "Frequency: %.2f Hz", sender.value)
-    }
 
     struct AudioConstants {
-        static let AUDIO_BUFFER_SIZE = 1024 * 8
+        static let AUDIO_BUFFER_SIZE = 1024 * 8  // Increase this if necessary for better resolution
     }
 
     let audio = AudioModel(buffer_size: AudioConstants.AUDIO_BUFFER_SIZE)
@@ -42,6 +37,12 @@ class ModuleBViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        // Set up the callback to update the gesture label when gesture detection occurs
+        audio.gestureCallback = { [weak self] gestureResult in
+            self?.gestureLabel.text = gestureResult
+        }
+
+        // Read from microphone in real time
         audio.startMicrophoneProcessing(withFps: 30)
 
         frequencySlider.minimumValue = 17000.0
@@ -56,17 +57,11 @@ class ModuleBViewController: UIViewController {
             graph.makeGrids()
         }
 
-        // Start sinewave playback when the view appears
         audio.startProcessingSinewaveForPlayback(withFreq: frequencySlider.value)
         audio.play()
 
         Timer.scheduledTimer(withTimeInterval: 0.05, repeats: true) { _ in
             self.updateGraph()
-        }
-        
-        // Timer to update gesture detection label
-        Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { _ in
-            self.updateGestureLabel()
         }
     }
 
@@ -76,7 +71,12 @@ class ModuleBViewController: UIViewController {
         audio.play()
     }
 
-    // Update the graph periodically
+    @IBAction func changeFrequency(_ sender: UISlider) {
+        self.audio.sineFrequency = sender.value
+        freqLabel.text = String(format: "Frequency: %.2f Hz", sender.value)
+    }
+
+    // periodically, update the graph with refreshed FFT Data
     func updateGraph() {
         if let graph = self.graph {
             let startFreq: Float = 17000.0
@@ -91,10 +91,6 @@ class ModuleBViewController: UIViewController {
             }
         }
     }
-
-    // Update the gesture label based on the current gesture detection
-    func updateGestureLabel() {
-        // Use the `gestureResult` from AudioModel to display in the gestureLabel
-        gestureLabel.text = audio.gestureResult
-    }
 }
+
+
