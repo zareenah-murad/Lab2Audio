@@ -19,7 +19,7 @@ class ModuleBViewController: UIViewController {
     @IBOutlet weak var gestureLabel: UILabel!
 
     struct AudioConstants {
-        static let AUDIO_BUFFER_SIZE = 1024 * 8  // Increase this if necessary for better resolution
+        static let AUDIO_BUFFER_SIZE = 1024 * 4  // Increase this if necessary for better resolution
     }
 
     let audio = AudioModel(buffer_size: AudioConstants.AUDIO_BUFFER_SIZE)
@@ -67,6 +67,7 @@ class ModuleBViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        audio.startProcessingSinewaveForPlayback(withFreq: frequencySlider.value)
         // Resume gesture detection and audio playback when the view appears again
         audio.play()
     }
@@ -79,18 +80,28 @@ class ModuleBViewController: UIViewController {
     // periodically, update the graph with refreshed FFT Data
     func updateGraph() {
         if let graph = self.graph {
-            let startFreq: Float = 17000.0
-            let endFreq: Float = 20000.0
-
-            let startIdx = max(0, Int(startFreq * Float(AudioConstants.AUDIO_BUFFER_SIZE) / Float(audio.samplingRate)))
-            let endIdx = min(audio.fftData.count - 1, Int(endFreq * Float(AudioConstants.AUDIO_BUFFER_SIZE) / Float(audio.samplingRate)))
-
-            if startIdx < audio.fftData.count && endIdx < audio.fftData.count {
-                let subArray = Array(audio.fftData[startIdx...endIdx])
-                graph.updateGraph(data: subArray, forKey: "zoomedFFT")
+            // Find the peak frequency index in the FFT data
+            if let peakIdx = audio.fftData.firstIndex(of: audio.fftData.max() ?? 0) {
+                
+                // Define the number of points to display on the graph (e.g., 400 as before)
+                let numPoints = 400
+                
+                // Calculate the start and end indices so that the peak is centered
+                let halfWindow = numPoints / 2
+                let startIdx = max(peakIdx - halfWindow, 0)
+                let endIdx = min(peakIdx + halfWindow, audio.fftData.count - 1)
+                
+                // Check if the indices are within bounds
+                if startIdx < audio.fftData.count && endIdx < audio.fftData.count {
+                    let subArray = Array(audio.fftData[startIdx...endIdx])
+                    
+                    // Update the graph with the centered peak data
+                    DispatchQueue.main.async(){graph.updateGraph(data: subArray, forKey: "zoomedFFT")}
+                }
             }
         }
     }
+
 }
 
 

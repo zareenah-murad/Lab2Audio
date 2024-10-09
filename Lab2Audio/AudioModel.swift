@@ -20,7 +20,7 @@ class AudioModel {
     
     private var previousPeakFrequency: Float? = nil
     private var previousMaxValue: Float = 0.0
-    private let gestureThreshold: Float = 1.0  // Threshold to detect significant movement
+    private let gestureThreshold: Float = 17.0  // Threshold to detect significant movement
     private let noGestureThresholdTime: TimeInterval = 1.0  // Time after which "No Gesture" is displayed
     private var lastGestureTime: Date = Date()  // Tracks the last time a gesture was detected
     private var lastGesture: String = "No Gesture"  // Track the last gesture (toward or away)
@@ -121,44 +121,65 @@ class AudioModel {
 
             fftHelper!.performForwardFFT(withData: &timeData, andCopydBMagnitudeToBuffer: &fftData)
 
-            var maxIndex: vDSP_Length = 0
-            var maxValue: Float = 0.0
-            vDSP_maxvi(fftData, 1, &maxValue, &maxIndex, vDSP_Length(fftData.count))
+            let peakFrequency = sineFrequency
+            
+            // Get the index corresponding to the peak frequency in the FFT data
+            var maxIndex = Int(peakFrequency * Float(AudioConstants.AUDIO_BUFFER_SIZE) / Float(samplingRate))
 
-            let peakFrequency = Float(maxIndex) * (Float(samplingRate) / Float(BUFFER_SIZE))
+            // Define a window size to calculate averages on both sides of the peak
+            let windowSize = 10  // Adjust this size based on your desired precision
 
-            if let previousFrequency = previousPeakFrequency {
-                let frequencyShift = peakFrequency - previousFrequency
-                let magnitudeThreshold: Float = 0.5
+            // Ensure the indices are within valid bounds
+            let leftStart = max(0, maxIndex - windowSize)
+            let leftEnd = maxIndex
+            let rightStart = maxIndex
+            let rightEnd = min(fftData.count - 1, maxIndex + windowSize)
 
-                // Detect if the frequency shift is above the gesture threshold
-                if abs(frequencyShift) > gestureThreshold && abs(maxValue - previousMaxValue) > magnitudeThreshold {
-                    if frequencyShift > 0 {
-                        // Gesture Toward detected, update gesture
-                        gestureResult = "Gesture Toward Detected"
-                        lastGesture = "Gesture Toward"
-                    } else {
-                        // Gesture Away detected, update gesture
-                        gestureResult = "Gesture Away Detected"
-                        lastGesture = "Gesture Away"
+            // Get the left and right values without filtering
+            let leftValues = Array(fftData[leftStart..<leftEnd])
+            let rightValues = Array(fftData[rightStart..<rightEnd])
+
+            // Calculate the average magnitudes for left and right sides
+            let leftAverage = leftValues.reduce(0, +) / Float(leftValues.count)
+            let rightAverage = rightValues.reduce(0, +) / Float(rightValues.count)
+
+            // Debug logging to help track what's going on
+            print("Peak Frequency: \(peakFrequency), Left Avg: \(leftAverage), Right Avg: \(rightAverage), Max Index: \(maxIndex)")
+
+            // Ensure there are enough valid values for comparison
+            let validLeft = leftValues.count > 0
+            let validRight = rightValues.count > 0
+
+            // Only detect gestures if both sides have valid values
+            if validLeft && validRight {
+                if leftAverage < rightAverage && abs(leftAverage - rightAverage) > gestureThreshold {
+                    gestureResult = "Gesture Toward Detected"
+                    lastGesture = "Gesture Toward"
+                    lastGestureTime = Date()
+                } else if rightAverage < leftAverage && abs(rightAverage - leftAverage) > gestureThreshold {
+                    gestureResult = "Gesture Away Detected"
+                    lastGesture = "Gesture Away"
+                    lastGestureTime = Date()
+                } else {
+                    // No significant difference in averages, consider it "No Gesture"
+                    if abs(lastGestureTime.timeIntervalSinceNow) > noGestureThresholdTime {
+                        gestureResult = "No Gesture"
+                        lastGesture = "No Gesture"
                     }
-                    lastGestureTime = Date()  // Update the last time a gesture was detected
+                }
+            } else {
+                // If no valid values on either side, consider it "No Gesture"
+                if abs(lastGestureTime.timeIntervalSinceNow) > noGestureThresholdTime {
+                    gestureResult = "No Gesture"
+                    lastGesture = "No Gesture"
                 }
             }
 
-            // If no significant shift for a while, revert to "No Gesture"
-            if abs(lastGestureTime.timeIntervalSinceNow) > noGestureThresholdTime {
-                gestureResult = "No Gesture"
-                lastGesture = "No Gesture"
-            } else {
-                // Keep displaying the last gesture until timeout
-                gestureResult = lastGesture
-            }
-
-            previousPeakFrequency = peakFrequency
-            previousMaxValue = maxValue
+            // Debug: Log the current gesture result
+            print("Current Gesture: \(gestureResult)")
         }
     }
+
 
     //==========================================
     // MARK: Audiocard Callbacks
