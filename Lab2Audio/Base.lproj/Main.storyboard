@@ -151,10 +151,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="430" height="932"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QWw-5a-NYK">
-                                <rect key="frame" x="50" y="125" width="335" height="440"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QWw-5a-NYK">
+                                <rect key="frame" x="45" y="125" width="340" height="440"/>
                                 <color key="backgroundColor" systemColor="opaqueSeparatorColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="440" id="oHI-aD-Dyv"/>
+                                </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cUJ-vb-5K2">
                                 <rect key="frame" x="194" y="700" width="42" height="21"/>
@@ -169,7 +171,7 @@
                                 </connections>
                             </slider>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yH3-Ud-aNa">
-                                <rect key="frame" x="194" y="639" width="42" height="21"/>
+                                <rect key="frame" x="194" y="608" width="42" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -180,7 +182,11 @@
                         <constraints>
                             <constraint firstItem="dwW-bh-Jhf" firstAttribute="top" secondItem="cUJ-vb-5K2" secondAttribute="bottom" constant="49" id="26A-SI-k7y"/>
                             <constraint firstItem="pF4-Yk-S9K" firstAttribute="trailing" secondItem="dwW-bh-Jhf" secondAttribute="trailing" constant="45" id="3Oc-3q-jrD"/>
+                            <constraint firstItem="QWw-5a-NYK" firstAttribute="leading" secondItem="pF4-Yk-S9K" secondAttribute="leading" constant="45" id="3bE-b1-8kI"/>
+                            <constraint firstItem="QWw-5a-NYK" firstAttribute="top" secondItem="pF4-Yk-S9K" secondAttribute="top" constant="22" id="EdD-NY-QpD"/>
+                            <constraint firstItem="QWw-5a-NYK" firstAttribute="centerX" secondItem="pF4-Yk-S9K" secondAttribute="centerX" id="IUg-Cy-YAv"/>
                             <constraint firstItem="dwW-bh-Jhf" firstAttribute="centerX" secondItem="pF4-Yk-S9K" secondAttribute="centerX" id="aY5-PE-kha"/>
+                            <constraint firstItem="pF4-Yk-S9K" firstAttribute="trailing" secondItem="QWw-5a-NYK" secondAttribute="trailing" constant="45" id="bhn-18-LBl"/>
                             <constraint firstItem="dwW-bh-Jhf" firstAttribute="leading" secondItem="pF4-Yk-S9K" secondAttribute="leading" constant="50" id="eXF-nQ-l7j"/>
                             <constraint firstItem="cUJ-vb-5K2" firstAttribute="centerX" secondItem="pF4-Yk-S9K" secondAttribute="centerX" id="fMF-3s-YJg"/>
                             <constraint firstItem="pF4-Yk-S9K" firstAttribute="bottom" secondItem="dwW-bh-Jhf" secondAttribute="bottom" constant="98" id="r8y-tF-IpV"/>
